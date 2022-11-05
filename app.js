@@ -3,9 +3,14 @@ const express = require('express');
 const app = express();
 
 //Middlewares
+// ex) app.use(auth); -> authenticate the user
+
+/*
 app.use('/posts', () =>{
     console.log('This is a middleware running');
 });
+*/
+
 
 //ROUTES
 app.get('/', (req, res) => {
