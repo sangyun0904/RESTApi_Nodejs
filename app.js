@@ -1,6 +1,6 @@
 const express = require('express');
-
 const app = express();
+const mongoose = require('mongoose');
 
 //Middlewares
 // ex) app.use(auth); -> authenticate the user
@@ -20,5 +20,10 @@ app.get('/', (req, res) => {
 app.get('/posts', (req, res) => {
     res.send('We are on posts');
 });
+
+//Connect to DB
+mongoose.connect('mongodb+srv://sangyoon0904:<sang8079>@rest.mlzjrat.mongodb.net/test', () => 
+    console.log('connected to DB!')
+);
 
 app.listen(3000);
