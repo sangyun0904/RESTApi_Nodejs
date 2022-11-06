@@ -28,8 +28,16 @@ app.get('/', (req, res) => {
 
 //Connect to DB
 mongoose.connect(
-    process.env.DB_CONNECTION, 
+    process.env.DB_CONNECTION,
+    { useNewUrlParser: true },
     () => console.log('connected to DB!')
 );
+
+//Make sure connection was successful
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+    console.log("Connected succesfully");
+});
 
 app.listen(3000);
