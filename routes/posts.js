@@ -2,8 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-router.get('/', (req, res) => {
-    res.send('We are on posts');
+// GETS BACK ALL THE POSTS
+router.get('/', async (req, res) => {
+    try{
+        const posts = await Post.find();
+        res.json(posts);
+    } catch(err) {
+        res.json({messgae:err});
+    }
 });
 
 
@@ -11,6 +17,7 @@ router.get('/specific', (req, res) => {
     res.send('Specific posts');
 });
 
+// SUBMIT A POST
 router.post('/', async (req, res) => {
     console.log(req.body);
 
@@ -22,8 +29,19 @@ router.post('/', async (req, res) => {
     const savedPost = await post.save();
     res.json(savedPost);
     }catch(err) {
-        res.json({message: err})
+        res.json({message: err});
     }
+});
+
+// SPECIFIC POST
+router.get('/:postId', async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.postId);
+        res.json(post);
+    } catch(err) {
+        res.json({message: err});
+    }
+    
 });
 
 module.exports = router;
